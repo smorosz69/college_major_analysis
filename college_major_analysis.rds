@@ -1,0 +1,28 @@
+#Prepared by Steve Orosz
+#Oct. 3, 2018
+#Optional Data Analysis Practice
+
+install.packages("devtools")
+devtools::install_github("jhudsl/collegeIncome")
+library(collegeIncome)
+data(college)
+
+devtools::install_github("jhudsl/matahari")
+library(matahari)
+dance_start(value = FALSE, contents = FALSE)
+
+#My Analysis Code
+attach(college)
+names(college)
+
+#Exploration of Data
+summary(college)
+
+par(mar = c(15,5,1,1))
+boxplot(rank~factor(major_category), data = college, las = 2)
+
+#Compare Agriculture rank to rest of collage major categories
+agricul_fit <- lm(rank~factor(major_category), data = college)
+summary(agricul_fit)
+
+dance_save("~/Desktop/college_major_analysis.rds")
